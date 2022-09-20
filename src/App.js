@@ -3,9 +3,9 @@ import AddUserForm from "./components/addUserForm/addUserForm"
 import User from "./components/user/user"
 
 const DUMMY_USERS = [
-	{ id: "u1", userName: "Konrad", userAge: 33 },
-	{ id: "u2", userName: "Bartek", userAge: 43 },
-	{ id: "u3", userName: "Gosia", userAge: 31 },
+	{ key: "u1", userName: "Konrad", userAge: 33 },
+	{ key: "u2", userName: "Bartek", userAge: 43 },
+	{ key: "u3", userName: "Gosia", userAge: 31 },
 ]
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 
 	return (
 		<div>
-			<AddUserForm onAddUser={addUserHandler}/>
+			<AddUserForm onAddUser={addUserHandler} />
 			<User users={users} />
 		</div>
 	)

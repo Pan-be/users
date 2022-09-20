@@ -2,8 +2,8 @@ import React, { useState } from "react"
 import styles from "./addUserForm.module.css"
 
 const AddUserForm = (props) => {
-	const [userName, setUserName] = useState('')
-	const [userAge, setUserAge] = useState('')
+	const [userName, setUserName] = useState("")
+	const [userAge, setUserAge] = useState("")
 
 	const setUserNameHandler = (e) => {
 		setUserName(e.target.value)
@@ -16,23 +16,29 @@ const AddUserForm = (props) => {
 		e.preventDefault()
 
 		const userData = {
+			key: Math.random().toString(),
 			userName: userName,
-			userAge: userAge
+			userAge: userAge,
 		}
 		props.onAddUser(userData)
 	}
-
 
 	return (
 		<div>
 			<form onSubmit={submitHadler}>
 				<div>
 					<label>Username</label>
-					<input type='text' value={userName} onChange={setUserNameHandler}></input>
+					<input
+						type='text'
+						value={userName}
+						onChange={setUserNameHandler}></input>
 				</div>
 				<div>
 					<label>Age (years)</label>
-					<input type='text' value={userAge} onChange={setUserAgeHandler}></input>
+					<input
+						type='number'
+						value={userAge}
+						onChange={setUserAgeHandler}></input>
 				</div>
 				<div>
 					<button type='submit'>Add User</button>
