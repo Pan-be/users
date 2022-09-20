@@ -10,9 +10,14 @@ const DUMMY_USERS = [
 
 function App() {
 	const [users, setUser] = useState(DUMMY_USERS)
+
+	const addUserHandler = (user) => {
+		setUser((prevState) => [user, ...prevState])
+	}
+
 	return (
 		<div>
-			<AddUserForm />
+			<AddUserForm onAddUser={addUserHandler}/>
 			<User users={users} />
 		</div>
 	)
