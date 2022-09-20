@@ -1,9 +1,10 @@
 import React from "react"
 import styles from "./user.module.css"
+import Card from "../UI/Card"
 
 const User = (props) => {
 	return (
-		<div>
+		<Card>
 			<ul>
 				{props.users.map((user) => {
 					return (
@@ -16,7 +17,7 @@ const User = (props) => {
 					{props.users[0].userName} ({props.users[0].userAge} years old)
 				</li>
 			</ul>
-		</div>
+		</Card>
 	)
 }
 
