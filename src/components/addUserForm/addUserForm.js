@@ -27,7 +27,7 @@ const AddUserForm = (props) => {
 		}
 
 		const userData = {
-			key: Math.random().toString(),
+			id: Math.random().toString(),
 			userName: userName,
 			userAge: userAge,
 		}
