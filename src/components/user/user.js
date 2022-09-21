@@ -4,7 +4,7 @@ import Card from "../UI/Card"
 
 const User = (props) => {
 	return (
-		<Card>
+		<Card className={styles.users}>
 			<ul>
 				{props.users.map((user) => {
 					return (
