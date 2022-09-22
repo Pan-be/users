@@ -3,10 +3,12 @@ import styles from "./addUserForm.module.css"
 
 import Card from "../UI/Card"
 import Button from "../UI/Button"
+import Modal from "../modal/modal"
 
 const AddUserForm = (props) => {
 	const [userName, setUserName] = useState("")
 	const [userAge, setUserAge] = useState("")
+	const [error, setError] = useState()
 
 	const setUserNameHandler = (e) => {
 		setUserName(e.target.value)
@@ -17,12 +19,20 @@ const AddUserForm = (props) => {
 
 	const submitHadler = (e) => {
 		e.preventDefault()
-
 		if (userName.trim().length === 0 || userAge.trim().length === 0) {
+			setError({
+				title: "Invalid input",
+				message: "Please enter a valid name and age (non-emnpty values)."
+			})
 			return
 		}
+		
+		if (+userAge < 0) {
+			setError({
+				title: "Invalid age",
+				message: "Please enter a valid age (> 0)."
+			})
 
-		if (userAge < 0) {
 			return
 		}
 
@@ -38,7 +48,11 @@ const AddUserForm = (props) => {
 		setUserAge("")
 	}
 
-	return (
+	const errorHandler = () => {
+		setError(null)
+	}
+	return (<div>
+		{error && <Modal onCloseModal={errorHandler} title={error.title} message={error.message}/>}
 		<Card className={styles.input}>
 			<form onSubmit={submitHadler}>
 				<label htmlFor='username'>Username</label>
@@ -57,7 +71,7 @@ const AddUserForm = (props) => {
 
 				<Button type='submit'>Add User</Button>
 			</form>
-		</Card>
+		</Card></div>
 	)
 }
 

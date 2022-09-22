@@ -19,6 +19,7 @@ function App() {
 		<div>
 			<AddUserForm onAddUser={addUserHandler} />
 			<User users={users} />
+			
 		</div>
 	)
 }
