@@ -1,13 +1,17 @@
 import React from "react"
+import { ReactDOM } from "react"
 
 import Card from "../UI/Card"
 import Button from "../UI/Button"
 
 import styles from "./modal.module.css"
 
-const Modal = (props) => {
-	return (<div>
-		<div onClick={props.onCloseModal} className={styles.backdrop}/>
+const Backdrop = (props) => {
+	return <div onClick={props.onCloseModal} className={styles.backdrop} />
+}
+
+const ModalOverlay = (props) => {
+	return (
 		<Card className={styles.modal}>
 			<header className={styles.header}>
 				<h1>{props.title}</h1>
@@ -18,7 +22,26 @@ const Modal = (props) => {
 			<footer className={styles.actions}>
 				<Button onClick={props.onCloseModal}>Okay</Button>
 			</footer>
-		</Card></div>
+		</Card>
+	)
+}
+
+const Modal = (props) => {
+	return (
+		<React.Fragment>
+			{ReactDOM.createPortal(
+				<Backdrop onClick={props.onClick} />,
+				document.getElementById("backdrop-root")
+			)}
+			{ReactDOM.createPortal(
+				<ModalOverlay
+					title={props.title}
+					message={props.message}
+					onCloseModal={props.onCloseModal}
+				/>,
+				document.getElementById("overlay-root")
+			)}
+		</React.Fragment>
 	)
 }
 
