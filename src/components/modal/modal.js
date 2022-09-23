@@ -1,5 +1,5 @@
 import React from "react"
-import { ReactDOM } from "react"
+import ReactDOM from "react-dom"
 
 import Card from "../UI/Card"
 import Button from "../UI/Button"
@@ -30,7 +30,7 @@ const Modal = (props) => {
 	return (
 		<React.Fragment>
 			{ReactDOM.createPortal(
-				<Backdrop onClick={props.onClick} />,
+				<Backdrop onCloseModal={props.onCloseModal} />,
 				document.getElementById("backdrop-root")
 			)}
 			{ReactDOM.createPortal(
