@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import styles from "./addUserForm.module.css"
 
 import Card from "../UI/Card"
@@ -6,31 +6,28 @@ import Button from "../UI/Button"
 import Modal from "../modal/modal"
 
 const AddUserForm = (props) => {
-	const [userName, setUserName] = useState("")
-	const [userAge, setUserAge] = useState("")
-	const [error, setError] = useState()
+	const nameInputRef = useRef()
+	const ageInputRef = useRef()
 
-	const setUserNameHandler = (e) => {
-		setUserName(e.target.value)
-	}
-	const setUserAgeHandler = (e) => {
-		setUserAge(e.target.value)
-	}
+	const [error, setError] = useState()
 
 	const submitHadler = (e) => {
 		e.preventDefault()
-		if (userName.trim().length === 0 || userAge.trim().length === 0) {
+		const enteredName = nameInputRef.current.value
+		const enteredAge = ageInputRef.current.value
+
+		if (enteredName.trim().length === 0 || enteredAge.trim().length === 0) {
 			setError({
 				title: "Invalid input",
-				message: "Please enter a valid name and age (non-emnpty values)."
+				message: "Please enter a valid name and age (non-emnpty values).",
 			})
 			return
 		}
-		
-		if (+userAge < 0) {
+
+		if (+enteredAge < 0) {
 			setError({
 				title: "Invalid age",
-				message: "Please enter a valid age (> 0)."
+				message: "Please enter a valid age (> 0).",
 			})
 
 			return
@@ -38,40 +35,39 @@ const AddUserForm = (props) => {
 
 		const userData = {
 			id: Math.random().toString(),
-			userName: userName,
-			userAge: userAge,
+			userName: enteredAge,
+			userAge: enteredAge,
 		}
 
 		props.onAddUser(userData)
-
-		setUserName("")
-		setUserAge("")
+		nameInputRef.current.value = ""
+		ageInputRef.current.value = ""
 	}
 
 	const errorHandler = () => {
 		setError(null)
 	}
-	return (<div>
-		{error && <Modal onCloseModal={errorHandler} title={error.title} message={error.message}/>}
-		<Card className={styles.input}>
-			<form onSubmit={submitHadler}>
-				<label htmlFor='username'>Username</label>
-				<input
-					id='username'
-					type='text'
-					value={userName}
-					onChange={setUserNameHandler}></input>
+	return (
+		<div>
+			{error && (
+				<Modal
+					onCloseModal={errorHandler}
+					title={error.title}
+					message={error.message}
+				/>
+			)}
+			<Card className={styles.input}>
+				<form onSubmit={submitHadler}>
+					<label htmlFor='username'>Username</label>
+					<input id='username' type='text' ref={nameInputRef}></input>
 
-				<label htmlFor='age'>Age (years)</label>
-				<input
-					id='age'
-					type='number'
-					value={userAge}
-					onChange={setUserAgeHandler}></input>
+					<label htmlFor='age'>Age (years)</label>
+					<input id='age' type='number' ref={ageInputRef}></input>
 
-				<Button type='submit'>Add User</Button>
-			</form>
-		</Card></div>
+					<Button type='submit'>Add User</Button>
+				</form>
+			</Card>
+		</div>
 	)
 }
 
