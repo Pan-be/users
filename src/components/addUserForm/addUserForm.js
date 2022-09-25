@@ -4,6 +4,7 @@ import styles from "./addUserForm.module.css"
 import Card from "../UI/Card"
 import Button from "../UI/Button"
 import Modal from "../modal/modal"
+import Wrapper from "../helpers/Wrapper"
 
 const AddUserForm = (props) => {
 	const nameInputRef = useRef()
@@ -48,7 +49,7 @@ const AddUserForm = (props) => {
 		setError(null)
 	}
 	return (
-		<div>
+		<Wrapper>
 			{error && (
 				<Modal
 					onCloseModal={errorHandler}
@@ -67,7 +68,7 @@ const AddUserForm = (props) => {
 					<Button type='submit'>Add User</Button>
 				</form>
 			</Card>
-		</div>
+		</Wrapper>
 	)
 }
 
